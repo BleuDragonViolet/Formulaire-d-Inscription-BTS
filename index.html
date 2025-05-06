@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire Stylé - Crépuscule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- EmailJS -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+    <script src="script.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, #1e1e2f, #2b2b40);
+            color: #cfcfcf;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-container {
+            background-color: #28293e;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 1100px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #a6a6b9;
+        }
+
+        .section-title {
+            color: #8f8fa6;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #464661;
+            padding-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #3b3b51;
+            border: 1px solid #5a5a76;
+            color: #d8c3dc;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #7070a0;
+            box-shadow: 0 0 10px #7070a0;
+        }
+
+        .form-check-input {
+            accent-color: #7070a0;
+            transition: transform 0.2s ease;
+        }
+
+        .form-check-input:checked {
+            transform: scale(1.2);
+        }
+
+        .btn-primary {
+            background-color: #56567e;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #7070a0;
+        }
+
+        .input-group-text {
+            background-color: #3b3b51;
+            border: 1px solid #5a5a76;
+            color: #a6a6b9;
+        }
+
+        .form-group-space {
+            margin-bottom: 25px;
+        }
+
+        .image-preview {
+            margin-top: 10px;
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid #7070a0;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .image-preview.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .theme-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .theme-selector .theme-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s ease;
+        }
+
+        .theme-selector .theme-color:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+
+        .toast-custom {
+            min-width: 250px;
+            max-width: 300px;
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s, fadeOut 1s 4s forwards;
+            opacity: 1;
+        }
+
+        .toast-success {
+            background-color: #28a745;
+        }
+
+        .toast-error {
+            background-color: #dc3545;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="theme-selector">
+        <div class="theme-color" style="background-color: #a6a6b9;" data-theme="#a6a6b9,#5a5a76"
+            data-title="Formulaire d'Inscription"></div>
+        <div class="theme-color" style="background-color: red;" data-theme="red,#cc0000"
+            data-title="Formulaire d'Inscription"></div>
+        <div class="theme-color" style="background-color: blue;" data-theme="blue,#0000cc"
+            data-title="Formulaire d'Inscription"></div>
+        <div class="theme-color" style="background-color: green;" data-theme="green,#00cc00"
+            data-title="Formulaire d'Inscription"></div>
+        <div class="theme-color" style="background-color: pink;" data-theme="pink,#ff69b4"
+            data-title="Formulaire d'Inscription"></div>
+        <div class="theme-color" style="background-color: white;" data-theme="white,#eaeaea"
+            data-title="Formulaire d'Inscription"></div>
+    </div>
+
+    <form class="form-container" id="contact-form">
+        <h2>Formulaire d'Inscription</h2>
+        <div class="row">
+            <!-- Colonne gauche -->
+            <div class="col-md-6 pe-md-5 border-end border-secondary">
+                <div class="section-title">Informations personnelles</div>
+
+                <div class="form-group-space">
+                    <label for="nomPrenom">Nom / Prénom *</label>
+                    <input type="text" class="form-control" id="nomPrenom" name="nomPrenom" required>
+                </div>
+
+                <div class="form-group-space">
+                    <label for="email">Email *</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="form-group-space">
+                    <label for="site">Site Internet</label>
+                    <input type="url" class="form-control" id="site" name="site">
+                </div>
+
+                <div class="form-group-space">
+                    <label for="ville">Ville *</label>
+                    <select class="form-select" id="ville" name="ville" required>
+                        <option disabled selected>Sélectionnez votre ville</option>
+                        <option value="94370">Sucy en Brie (94370)</option>
+                        <option value="94470">Boissy Saint Léger (94470)</option>
+                        <option value="94380">Bonneuil sur Marne (94380)</option>
+                    </select>
+                </div>
+
+                <div class="form-group-space">
+                    <label>Sexe</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sexe" id="homme" value="Homme">
+                        <label class="form-check-label" for="homme">Homme</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sexe" id="femme" value="Femme">
+                        <label class="form-check-label" for="femme">Femme</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sexe" id="na" value="Ne se prononce pas"
+                            checked>
+                        <label class="form-check-label" for="na">Ne se prononce pas</label>
+                    </div>
+                </div>
+
+                <div class="form-group-space">
+                    <label for="photo">Photo</label>
+                    <input type="file" class="form-control" id="photo" accept="image/*">
+                    <img id="photoPreview" class="image-preview" alt="Aperçu de la photo">
+                </div>
+            </div>
+
+            <!-- Colonne droite -->
+            <div class="col-md-6 ps-md-5 mt-4 mt-md-0">
+                <div class="section-title">Informations techniques</div>
+
+                <div class="form-group-space row">
+                    <div class="col">
+                        <label for="version">Version</label>
+                        <select class="form-select" id="version" name="version">
+                            <option>Sélectionnez une version</option>
+                            <option>1.0</option>
+                            <option>2.0</option>
+                            <option>3.0</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="os">Système d'exploitation</label>
+                        <select class="form-select" id="os" name="os">
+                            <option value="Windows">Windows</option>
+                            <option value="Linux">Linux</option>
+                            <option value="Mac OsX">Mac OsX</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group-space">
+                    <label for="login">Login *</label>
+                    <input type="text" class="form-control" id="login" required>
+                </div>
+
+                <div class="form-group-space">
+                    <label for="password">Mot de passe *</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" required>
+                        <span class="input-group-text">👁</span>
+                    </div>
+                </div>
+
+                <div class="form-group-space">
+                    <label for="confirmPassword">Confirmation mot de passe *</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                        <span class="input-group-text">👁</span>
+                    </div>
+                </div>
+
+                <div class="form-check mt-3">
+                    <input type="checkbox" class="form-check-input" id="conditions" name="conditions" value="Oui"
+                        required>
+                    <label class="form-check-label" for="conditions">
+                        J'accepte les conditions d'utilisation *
+                    </label>
+                </div>
+                <div class="form-check mt-4">
+                    <input class="form-check-input" type="checkbox" id="messageToggle">
+                    <label class="form-check-label" for="messageToggle">
+                        Ajouter un message supplémentaire
+                    </label>
+                </div>
+
+                <div class="form-group-space mt-3" id="messageBox" style="display:none;">
+                    <label for="message">Message supplémentaire</label>
+                    <textarea class="form-control" id="message" name="Message" rows="4"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <button type="reset" class="btn btn-outline-light me-3 px-4" id="resetBtn">Réinitialiser</button>
+            <button type="submit" class="btn btn-primary px-4">Inscription</button>
+        </div>
+
+        <div id="formToast" class="position-fixed top-0 end-0 p-3" style="z-index: 9999;"></div>
+
+
+    </form>
+    <script src="script.js"></script>
+</body>
+
+</html>
