@@ -105,3 +105,25 @@ function showFormMessage(success) {
     }, 5000);
 }
 
+  // Désactiver le clic droit
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
+  // Désactiver les raccourcis clavier liés à l'inspecteur
+  document.addEventListener("keydown", function (e) {
+    // F12
+    if (e.key === "F12") {
+      e.preventDefault();
+    }
+
+    // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+    if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) {
+      e.preventDefault();
+    }
+
+    // Ctrl+U (affichage du code source)
+    if (e.ctrlKey && e.key === "u") {
+      e.preventDefault();
+    }
+  });
